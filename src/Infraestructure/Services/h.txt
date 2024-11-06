@@ -1,0 +1,45 @@
+﻿using (var context = new ApplicationDbContext())
+{
+    // Crear un nuevo colaborador
+    var nuevoColaborador = new Colaborador
+    {
+        Nombre = "Carlos Ramírez",
+        Edad = 40,
+        BirthDate = new DateTime(1984, 4, 23),
+        IsProfesor = true, // Cambiar a false si es administrativo
+        FechaCreacion = DateTime.Now
+    };
+
+    // Agregar y guardar el colaborador en la base de datos
+    context.Colaboradores.Add(nuevoColaborador);
+    context.SaveChanges();
+
+    // Verificar si el colaborador es un profesor o un administrativo
+    if (nuevoColaborador.IsProfesor)
+    {
+        // Insertar en la tabla Profesor
+        var nuevoProfesor = new Profesor
+        {
+            FkColaborador = nuevoColaborador.Id,
+            Correo = "carlos.ramirez@ejemplo.com",
+            Departamento = "Matemáticas"
+        };
+        context.Profesores.Add(nuevoProfesor);
+    }
+    else
+    {
+        // Insertar en la tabla Administrativo
+        var nuevoAdministrativo = new Administrativo
+        {
+            FkColaborador = nuevoColaborador.Id,
+            Correo = "carlos.ramirez@ejemplo.com",
+            Puesto = "Contabilidad",
+            Nomina = "Mensual"
+        };
+        context.Administrativos.Add(nuevoAdministrativo);
+    }
+
+    // Guardar los cambios en la base de datos
+    context.SaveChanges();
+}
+
