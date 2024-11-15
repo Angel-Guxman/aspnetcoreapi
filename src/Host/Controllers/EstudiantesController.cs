@@ -47,6 +47,11 @@ namespace Host.Controllers
             var result = await _mediator.Send(new EstudianteDeleteCommand { Id = id });
             return Ok(result);
         }
+        [HttpGet("pdf")]
+        public async Task<ActionResult> GetPDF()
+        {var pdfFile= await _service.GetPDF();
+            return File(pdfFile, "application/pdf", "Estudiantes.pdf");
+        }
 
     }
 }

@@ -13,5 +13,6 @@ namespace ApplicationCore.Interfaces
         Task<Response<object>> GetEstudiantes();
         Task<Response<int>> UpdateEstudiante(EstudianteUpdateCommand command);
         Task<Response<int>> DeleteEstudiante(int id);
+        Task<byte[]> GetPDF();
     }
 }
